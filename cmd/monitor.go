@@ -11,25 +11,29 @@ import (
 
 var (
 	multicast bool
+	printBody bool
 	addr      string
 	ifaceName string
 	serveCmd  = &cobra.Command{
-		Use:   "serve",
-		Short: "Serve a UPNP honeypot that receives all the events and eventually persists them",
+		Use:   "monitor",
+		Short: "Monitor HTTPU packages and print them on stdout",
 		Long:  ``,
-		Run:   Serve,
+		Run:   Monitor,
 	}
 )
 
-type Honeypot struct{}
+type honeyPot struct{}
 
-func (Honeypot) ServeMessage(r *http.Request) {
-	fmt.Println("Host:",r.Host)
-	fmt.Println("Headers:",r.Header)
-	fmt.Println("URL",r.URL)
+func (honeyPot) ServeMessage(r *http.Request) {
+	fmt.Println("Host:", r.Host)
+	fmt.Println("Headers:", r.Header)
+	fmt.Println("URL", r.URL)
+	if printBody {
+		fmt.Println("Body", r.Body)
+	}
 }
 
-func Serve(cmd *cobra.Command, args []string) {
+func Monitor(cmd *cobra.Command, args []string) {
 	var (
 		e     error
 		iface *net.Interface
@@ -40,8 +44,7 @@ func Serve(cmd *cobra.Command, args []string) {
 		utils.Cry(e)
 	}
 
-
-	honeypot := Honeypot{}
+	honeypot := honeyPot{}
 	server := httpu.Server{
 		Addr:      addr,
 		Multicast: multicast,

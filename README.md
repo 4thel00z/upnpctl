@@ -66,14 +66,15 @@ upnpctl serve
 
 #### Usage:
 ``` 
-Serve a UPNP honeypot that receives all the events and eventually persists them
+Monitor HTTPU packages and print them on stdout
 
 Usage:
-  upnpctl serve [flags]
+  upnpctl monitor [flags]
 
 Flags:
   -a, --addr string    --addr <hostname>:<port> (default "239.255.255.250:1900")
-  -h, --help           help for serve
+  -h, --help           help for monitor
   -i, --iface string   --iface <interfacename>
   -m, --multicast      --multicast <true|false> (default true)
+  -p, --print-body     --print-body <true|false> (doesn't really make sense for ssdp discovery)
 ```

@@ -11,7 +11,7 @@ var (
 	rootCmd = &cobra.Command{
 		Use:   "upnpctl",
 		Short: "upnpctl is a upnp utility that can discover the ",
-		Long:  `
+		Long: `
                                                                              _..._                
                                                                           .-'_..._''.       .---. 
            _________   _...._         _..._   _________   _...._        .' .'      '.\      |   | 
@@ -46,6 +46,13 @@ func initCommand() {
 	serveCmd.PersistentFlags().StringVarP(&addr, "addr", "a", ssdpUDP4Addr, "--addr <hostname>:<port>")
 	serveCmd.PersistentFlags().StringVarP(&ifaceName, "iface", "i", "", "--iface <interfacename>")
 	serveCmd.PersistentFlags().BoolVarP(&multicast, "multicast", "m", true, "--multicast <true|false>")
+	serveCmd.PersistentFlags().BoolVarP(
+		&printBody,
+		"print-body",
+		"p",
+		false,
+		"--print-body <true|false> (doesn't really make sense for ssdp discovery)",
+	)
 
 	rootCmd.AddCommand(scanCmd, serveCmd)
 }
