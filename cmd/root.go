@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"os"
+	"upnpctl/utils"
 )
 
 var (
@@ -12,7 +13,7 @@ var (
 		Short: "upnpctl is a upnp utility that can discover the ",
 		Long:  `TBD`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Inside of upnpctl", args)
+			utils.Cry(cmd.Help())
 		},
 	}
 )
